@@ -11,6 +11,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<NoteContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("GeilServer")));
 
+// Configure server to allow CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowVueApp", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+    });
+});
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,4 +37,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseCors("AllowVueApp");
+
 app.Run();
+
+
