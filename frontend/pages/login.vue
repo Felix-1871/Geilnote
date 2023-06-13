@@ -14,19 +14,18 @@
                     <input type="password" id="password" name="password" />
                 </div>
                 <div class="login__form__input">
-                    <button type="submit" @click="store.login()">Login</button>
+                    <button type="submit">Login</button>
                 </div>
             </form>
         </div>
     </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 
-import { store } from '~/app.vue';
-    
-    
-   async function login() {
+export default {
+    methods: {
+        async login() {
             const user: { username: string; password: string; UserId: string } = await $fetch(
                 "https://localhost:7114/api/User"
             );
@@ -45,8 +44,6 @@ import { store } from '~/app.vue';
                        const userID_cookie = useCookie('userID');
                         userID_cookie.value = user[i].userId;
                         this.$router.push("/notes");
-                        
- 
 
 
                     } else {
@@ -54,9 +51,9 @@ import { store } from '~/app.vue';
                     }
                 }
             }
-        }
-   
-
+        },
+    },
+};
 </script>
 
 <style scoped>

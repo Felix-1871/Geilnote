@@ -5,13 +5,13 @@
             <NuxtLink class="create" to="/notes/create">Create note</NuxtLink>
         </div>
         <div class="NotesContent">
-             <div class="noteContainer" v-for="note in UserNotes" :key="note.NoteID">
+             <div class="noteContainer" v-for="note in UserNotes" :key="note.noteID">
                 <div class="title"><h2>{{ note.title }}</h2></div>
                 <p>{{ note.noteText }}</p>
                 <p>{{ note.tag }}</p> 
                 <div class="buttons">
-                    <NuxtLink class="edit" :to="'/notes/edit/' + note.NoteID">Edit</NuxtLink>
-                    <NuxtLink class="delete" :to="'/notes/delete/' + note.NoteID">Delete</NuxtLink>
+                    <NuxtLink class="edit" :to="'/notes/edit/:id' + note.noteID">Edit</NuxtLink>
+                    <button class="delete" @click="deleteNote(note)">Delete</button>
                 </div>
              </div> 
         </div>
@@ -136,18 +136,30 @@
 <script lang="ts">
 
 export default {
-  data() {
-    return {
-      notes: [],
-      UserNotes: [] // declare UserNotes as a property of data
+    data() {
+        return {
+            notes: [],
+            UserNotes: [] // declare UserNotes as a property of data
+        }
+    },
+    methods: {
+        async deleteNote(note: any) {
+            console.log(note)
+  await $fetch('https://localhost:7114/api/Note/' + note.noteID, {
+    method: 'DELETE'
+  });
+  this.notes = this.notes.filter((n: any) => n.NoteID !== note.NoteID);
+  this.UserNotes = this.UserNotes.filter((n: any) => n.noteID !== note.noteID);
+}
+    },
+    async mounted() {
+        const cookie = useCookie('userID')
+        console.log(cookie.value)
+        const notes = await $fetch('https://localhost:7114/api/Note')
+        this.notes = notes as any[] // add type assertion
+        const UserNotes = this.notes.filter((note: any) => note.userId === cookie.value)
+        this.UserNotes = UserNotes // assign filtered array to UserNotes property
+        console.log(this.UserNotes)
     }
-  },
-  async mounted() {
-    const cookie = useCookie('userID')
-    const notes = await $fetch('https://localhost:7114/api/Note')
-    this.notes = notes
-    const UserNotes = this.notes.filter((note: any) => note.userId === cookie.value)
-    this.UserNotes = UserNotes // assign filtered array to UserNotes property
-  }
 }
 </script>

@@ -27,6 +27,19 @@ namespace backend.Controllers
 
             return _context.Notes.ToList();
         }
+
+        // GET: api/Note/5
+        [HttpGet("{id}")]
+        public IActionResult GetNoteById(Guid id)
+        {
+            var note = _context.Notes.Find(id);
+            if (note == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(note);
+        }
         // POST: api/Note
         [HttpPost]
         public IActionResult Post(Note note)
