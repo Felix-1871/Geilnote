@@ -27,13 +27,6 @@ namespace backend.Controllers
             return _context.Users.ToList();
         }
 
-        // GET: api/User/5
-        [HttpGet("{id}", Name = "GetUser")]
-        public IActionResult Get(Guid id)
-        {
-            return Ok("Hello from NoteController");
-        }
-
         // POST: api/Note
         [HttpPost]
         public IActionResult Post(User user)
@@ -50,19 +43,19 @@ namespace backend.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(Guid id, User user)
         {
-            var User = _context.Users.Find(id);
-            if (User == null)
+            user = _context.Users.Find(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            User.Username = user.Username;
-            User.Email = user.Email;
-            User.Password = user.Password;
-            User.IsAdmin = user.IsAdmin;
+            user.Username = user.Username;
+            user.Email = user.Email;
+            user.Password = user.Password;
+            user.IsAdmin = user.IsAdmin;
 
 
-            _context.Users.Update(User);
+            _context.Users.Update(user);
             _context.SaveChanges();
 
             return Ok();

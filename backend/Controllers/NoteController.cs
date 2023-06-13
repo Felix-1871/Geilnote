@@ -39,52 +39,34 @@ namespace backend.Controllers
         [HttpPost]
         public IActionResult Post(Note note)
         {
-            var cookie = Request.Cookies["UserId"];
-
-            Guid userId;
+            var cookie = Request.Cookies["userID"];
             if (cookie != null)
             {
-                userId = Guid.Parse(cookie);
-
-            }
-            else
-            {
-                userId = Guid.NewGuid();
-                _context.Users.Add(new User
-                {
-                    UserId = userId,
-                    Username = "deleteme",
-                    Email = "deleteme",
-                    Password = "deleteme",
-                    IsAdmin = false
-                });
+                var userId = Guid.Parse(cookie);
+                note.UserId = userId;
+                note.NoteID = Guid.NewGuid();
+                _context.Notes.Add(note);
                 _context.SaveChanges();
             }
-
-
-            note.UserId = userId;
-            note.NoteID = Guid.NewGuid();
-            _context.Notes.Add(note);
-            _context.SaveChanges();
-            return Ok("Hai");
+            return Ok();
         }
 
         // UPDATE: api/Note/5
         [HttpPut("{id}")]
         public IActionResult Update(Guid id, Note note)
         {
-            var Note = _context.Notes.Find(id);
-            if (Note == null)
+            note = _context.Notes.Find(id);
+            if (note == null)
             {
                 return NotFound();
             }
 
-            Note.Title = note.Title;
-            Note.TitleColor = note.TitleColor;
-            Note.NoteText = note.NoteText;
-            Note.Tag = note.Tag;
+            note.Title = note.Title;
+            note.TitleColor = note.TitleColor;
+            note.NoteText = note.NoteText;
+            note.Tag = note.Tag;
 
-            _context.Notes.Update(Note);
+            _context.Notes.Update(note);
             _context.SaveChanges();
 
             return Ok();

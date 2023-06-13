@@ -15,7 +15,7 @@ builder.Services.AddDbContext<NoteContext>(options => options.UseSqlServer(build
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowVueApp",
-               builder => builder.WithOrigins("http://localhost:3000")
+               corsPolicyBuilder => corsPolicyBuilder.WithOrigins("http://localhost:3000")
                       .AllowAnyMethod()
                       .AllowAnyHeader()
                       .AllowCredentials());
