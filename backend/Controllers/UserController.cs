@@ -43,7 +43,7 @@ namespace backend.Controllers
             user.UserId = Guid.NewGuid();
             _context.Users.Add(user);
             _context.SaveChanges();
-            return Ok("Mordo, " + user.UserId);
+            return Ok(user.UserId);
         }
 
         // UPDATE: api/Note/5

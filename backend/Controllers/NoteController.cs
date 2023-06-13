@@ -40,10 +40,7 @@ namespace backend.Controllers
         public IActionResult Post(Note note)
         {
             var cookie = Request.Cookies["UserId"];
-            //if (cookie == null)
-            //{
-            //    throw new Exception("UserId is null");
-            //}
+
             Guid userId;
             if (cookie != null)
             {
@@ -69,7 +66,7 @@ namespace backend.Controllers
             note.NoteID = Guid.NewGuid();
             _context.Notes.Add(note);
             _context.SaveChanges();
-            return Ok("Hello from NoteController");
+            return Ok("Hai");
         }
 
         // UPDATE: api/Note/5

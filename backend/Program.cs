@@ -11,16 +11,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<NoteContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("GeilServer")));
 
-// Configure server to allow CORS
+// Configure server to allow CORS from Vue app (localhost:3000) to get and post data
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowVueApp", builder =>
-    {
-        builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
-    });
+    options.AddPolicy("AllowVueApp",
+               builder => builder.WithOrigins("http://localhost:3000")
+                      .AllowAnyMethod()
+                      .AllowAnyHeader()
+                      .AllowCredentials());
 });
-
-
 
 var app = builder.Build();
 
@@ -40,5 +39,3 @@ app.MapControllers();
 app.UseCors("AllowVueApp");
 
 app.Run();
-
-
