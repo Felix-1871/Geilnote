@@ -27,7 +27,7 @@ GeilNote is a REST API for managing notes. It allows you to create, read, update
 
 ### Backend
 
-API is available at `http://localhost:7114/api/notes`
+API is available at `http://localhost:7114/api/`
 
 ### Frontend
 
