@@ -2,14 +2,18 @@
     <div class="notes">
         <div class="notes__title">
             <h1>Notes</h1>
-            <NuxtLink to="/notes/create">Create note</NuxtLink>
+            <NuxtLink class="create" to="/notes/create">Create note</NuxtLink>
         </div>
-        <div class="notes__content">
-            <!-- <div class="notes__content__note" v-for="note in UserNotes" :key="note.NoteID">
-                <h2>{{ note.title }}</h2>
+        <div class="NotesContent">
+             <div class="noteContainer" v-for="note in UserNotes" :key="note.NoteID">
+                <div class="title"><h2>{{ note.title }}</h2></div>
                 <p>{{ note.noteText }}</p>
-                <p>{{ note.tag }}</p> -->
-            <!-- </div> -->
+                <p>{{ note.tag }}</p> 
+                <div class="buttons">
+                    <NuxtLink class="edit" :to="'/notes/edit/' + note.NoteID">Edit</NuxtLink>
+                    <NuxtLink class="delete" :to="'/notes/delete/' + note.NoteID">Delete</NuxtLink>
+                </div>
+             </div> 
         </div>
     </div>
 </template>
@@ -20,62 +24,130 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    justify-content: center;
+    margin: 0 auto;
+    width: 80%;
 }
 
 .notes__title {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.notes__content {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
 }
 
-.notes__content__note {
+.NotesContent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+
+    width: 100%;
+}
+
+.noteContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
     border: 1px solid var(--nord3);
     border-radius: 0.5rem;
-    padding: 1rem;
-    margin: 1rem 0;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    box-shadow: 0 0 10px var(--nord3);
 }
 
-.notes__content__note h2 {
+.noteContainer h2 {
     font-size: 1.5rem;
     font-weight: bold;
 }
 
-.notes__content__note p {
+.noteContainer p {
     font-size: 1rem;
 }
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.buttons a {
+    width: 100px;
+    padding: 0.5rem;
+    border: 1px solid var(--nord3);
+    border-radius: 0.5rem;
+    background-color: var(--nord3);
+    color: var(--nord6);
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+.edit:hover {
+    background-color: var(--nord10);
+}
+
+.delete:hover {
+    background-color: var(--nord11);
+}
+
+.create {
+    width: 150px;
+    padding: 0.5rem;
+    border: 1px solid var(--nord3);
+    border-radius: 0.5rem;
+    background-color: var(--nord3);
+    color: var(--nord6);
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+.create:hover {
+    background-color: var(--nord10);
+}
+
+.title{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--nord3); 
+    border-radius: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px var(--nord3);
+}
+
+
+
+
+
 
 
 </style>
 
 <script lang="ts">
 
-
 export default {
-    data() {
-        return {
-            notes: []
-        }
-    },
-    async mounted(this: any) {
-        const cookie = useCookie('userID')
-        const notes = await $fetch('https://localhost:7114/api/Note')
-        this.notes = notes
-
-        const UserNotes = this.notes.filter((note: any) => note.userID === cookie)
-        this.notes = UserNotes
-        console.log(this.notes)
+  data() {
+    return {
+      notes: [],
+      UserNotes: [] // declare UserNotes as a property of data
     }
+  },
+  async mounted() {
+    const cookie = useCookie('userID')
+    const notes = await $fetch('https://localhost:7114/api/Note')
+    this.notes = notes
+    const UserNotes = this.notes.filter((note: any) => note.userId === cookie.value)
+    this.UserNotes = UserNotes // assign filtered array to UserNotes property
+  }
 }
-
 </script>

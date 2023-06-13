@@ -8,11 +8,11 @@
             <NuxtLink to="/">Home</NuxtLink>
             <NuxtLink to="/about">About us</NuxtLink>
             <NuxtLink to="/contact">Contact</NuxtLink>
-            <NuxtLink v-if="isLogged" to="/notes">My Notes</NuxtLink>
-            <NuxtLink v-if="IsAdmin=true" to="/users">Manage users</NuxtLink>
-            <NuxtLink v-if="isLogged" to="/logout">Logout</NuxtLink>
-            <NuxtLink v-if="!isLogged" to="/login">Login</NuxtLink>
-            <NuxtLink v-if="!isLogged" to="/register">Register</NuxtLink>
+            <NuxtLink v-if="isUserLoggedIn" to="/notes">My Notes</NuxtLink>
+            <NuxtLink v-if="IsAdmin" to="/users">Manage users</NuxtLink>
+            <NuxtLink v-if="isUserLoggedIn" to="/logout">Logout</NuxtLink>
+            <NuxtLink v-if="!isUserLoggedIn" to="/login">Login</NuxtLink>
+            <NuxtLink v-if="!isUserLoggedIn" to="/register">Register</NuxtLink>
             
 
         </div>
@@ -27,10 +27,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--nord7);
+    background-color: var(--nord3);
     padding: 0 1rem;
     height: 3rem;
-    width: 100%;
+    max-width: 100vw;
 }
 
 .navbar__title {
@@ -41,30 +41,34 @@
 .navbar__links {
     display: flex;
     justify-content: space-between;
-    width: 30%;
+    width: 40%;
+    font-size: 1rem;
+    font-weight: bold;
+    position: relative;
+    left: 0;
+    transition: left 0.5s ease-in-out;
+
 }
 
 .navbar__links a {
     text-decoration: none;
-    color: #000;
+    color: var(--nord5);
 }
 
 .navbar__links a:hover {
-    color: #666;
+    color: var(--nord7);
 }
 
 </style>
 
-<script lang="ts">
+<script setup lang="ts">
 
 import { NuxtLink } from '~/.nuxt/components';
-export default {
-    data() {
-        return {
-            isLogged: false,
-            IsAdmin: false
 
-        }
-    }
-}
+import { store } from '~/app.vue';
+
+const isUserLoggedIn = store.isUserLoggedIn;
+const IsAdmin = store.IsAdmin;
+
+
 </script>

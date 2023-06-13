@@ -27,7 +27,7 @@
                     <input type="checkbox" id="isAdmin" v-model="isAdmin" />
                 </div>
                 <div class="register__form__input">
-                    <button type="submit" @click="isLogged">Register</button>
+                    <button type="submit">Register</button>
                 </div>
             </form>
         </div>
@@ -109,6 +109,10 @@ export default defineComponent({
     },
     methods: {
         async register(this: any) {
+           if (!this.username || !this.email || !this.password || this.password !== this.confirmPassword){
+            alert('Please fill all fields correctly')
+           }
+            else {
             const response = await fetch('https://localhost:7114/api/User', {
                 method: 'POST',
                 headers: {
@@ -124,20 +128,21 @@ export default defineComponent({
             if (response.ok) {
                 console.log('Success')
                 const userID_cookie = useCookie('userID');
-                const userIsAdmin_cookie = useCookie('userIsAdmin');
-                userIsAdmin_cookie.value = this.isAdmin;
                 userID_cookie.value = (await response.json());
-                this.$router.push('/notes');
+                this.$router.push('/login');
+                alert('User created! You can now login :)')
+
+
+
+
 
                 
             } else {
                 console.log('Error');
                 console.log(await response.json());
-}
+}}
         },
-        isLogged(this: any) {
-           this.$emit('isLogged', true);
-        }
+        
     }
 });
 </script>
