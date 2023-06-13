@@ -27,27 +27,17 @@ namespace backend.Controllers
 
             return _context.Notes.ToList();
         }
-
-        // GET: api/Note/5
-        [HttpGet("{id}", Name = "GetNote")]
-        public IActionResult Get(Guid id)
-        {
-            return Ok("Hello from NoteController");
-        }
-
         // POST: api/Note
         [HttpPost]
         public IActionResult Post(Note note)
         {
-            var cookie = Request.Cookies["userID"];
-            if (cookie != null)
-            {
-                var userId = Guid.Parse(cookie);
-                note.UserId = userId;
-                note.NoteID = Guid.NewGuid();
-                _context.Notes.Add(note);
-                _context.SaveChanges();
-            }
+            var cookie_input = note.UserId.ToString();
+            var userId = Guid.Parse(cookie_input);
+            note.UserId = userId;
+            note.NoteID = Guid.NewGuid();
+            _context.Notes.Add(note);
+            _context.SaveChanges();
+
             return Ok();
         }
 
