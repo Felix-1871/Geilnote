@@ -1,6 +1,7 @@
 <template>
 
     <div class="notes__form">
+        <h2>Create a new note</h2>
         <form @submit.prevent="register">
             <div class="notes__form__input">
                 <label for="Title">Title</label>

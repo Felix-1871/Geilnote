@@ -7,13 +7,13 @@
                 <input type="text" id="Title" name="Title" v-model="Title" />
             </div>
             <div class="notes__form__input">
-                <label for="TitleColor">TitleColor</label>
+                <label for="TitleColor">Title Colour</label>
                 <select id="TitleColor" name="TitleColor" v-model="TitleColor">
                     <option v-for="colour in colours" :value="colour.value">{{ colour.label }}</option>
                 </select>
             </div>
             <div class="notes__form__input">
-                <label for="NoteText">NoteText</label>
+                <label for="NoteText">Note text</label>
                 <input type="text" id="NoteText" name="NoteText" v-model="NoteText" />
             </div>
             <div class="notes__form__input">
@@ -94,3 +94,60 @@ export default {
 
 
 </script>
+
+<style scoped>
+
+.noteEdit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.noteEdit form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
+.noteEdit form input {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+}
+
+.noteEdit form button {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+}
+
+.noteEdit form label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-height: fit-content;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.noteEdit form select {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+}
+
+
+
+
+</style>

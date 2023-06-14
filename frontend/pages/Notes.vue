@@ -88,6 +88,20 @@
     text-decoration: none;
 }
 
+.buttons button {
+    width: 100px;
+    padding: 0.5rem;
+    border: 1px solid var(--nord3);
+    border-radius: 0.5rem;
+    background-color: var(--nord3);
+    color: var(--nord6);
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .edit:hover {
     background-color: var(--nord10);
 }
@@ -109,8 +123,25 @@
     text-decoration: none;
 }
 
+
+
 .create:hover {
     background-color: var(--nord10);
+}
+
+
+.delete {
+    width: 150px;
+    padding: 0.5rem;
+    border: 1px solid var(--nord3);
+    border-radius: 0.5rem;
+    background-color: var(--nord3);
+    color: var(--nord6);
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .title{
@@ -154,12 +185,11 @@ export default {
     },
     async mounted() {
         const cookie = useCookie('userID')
-        console.log(cookie.value)
         const notes = await $fetch('https://localhost:7114/api/Note')
         this.notes = notes as any[] // add type assertion
         const UserNotes = this.notes.filter((note: any) => note.userId === cookie.value)
         this.UserNotes = UserNotes // assign filtered array to UserNotes property
-        console.log(this.UserNotes)
+
     }
 }
 </script>
