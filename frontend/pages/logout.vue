@@ -11,23 +11,27 @@
    
 </template>
 
-<script setup lang="ts">
-
-function logout () {
-    const userID_cookie = useCookie('userID');
-    userID_cookie.value = null;
+<script lang="ts">
+export default {
+    methods: {
+        logout () {
+            const userID_cookie = useCookie('userID');
+            userID_cookie.value = null;
+            this.$emit("logout-success", false);
+        },
+        animate () {
+            const cookieTERMINATOR = document.querySelector('.cookieTERMINATOR');
+            cookieTERMINATOR.classList.add('animate__animated', 'animate__fadeOutUp');
+           
+            setTimeout(() => {
+                 cookieTERMINATOR.innerHTML = 'THANK YOU <3';
+                 cookieTERMINATOR.style.color = 'red';
+                cookieTERMINATOR.classList.remove('animate__animated', 'animate__fadeOutUp');
+            }, 1000);
+        }
+    }
 }
 
-function animate () {
-    const cookieTERMINATOR = document.querySelector('.cookieTERMINATOR');
-    cookieTERMINATOR.classList.add('animate__animated', 'animate__fadeOutUp');
-   
-    setTimeout(() => {
-         cookieTERMINATOR.innerHTML = 'THANK YOU <3';
-         cookieTERMINATOR.style.color = 'red';
-        cookieTERMINATOR.classList.remove('animate__animated', 'animate__fadeOutUp');
-    }, 1000);
-}
 
 </script>
 

@@ -16,7 +16,7 @@
         </div>
    </div>
 
-    <NuxtPage />
+    <NuxtPage @login-success ="handleLoginSuccess" />
   </div>
 </template>
 
@@ -98,14 +98,18 @@ a:hover {
 
 <script lang="ts">
 
-import { reactive } from 'vue';
+export default {
 
-export const store = reactive({
-  isUserLoggedIn: false,
-  IsAdmin: false,
-  login(){
-    this.isUserLoggedIn = true
-  }
-});
+  data() {
+    return {
+      isUserLoggedIn: false,
+      IsAdmin: false,
+    };
+  }, methods: {
+    handleLoginSuccess() {
+      this.isUserLoggedIn = true;
+    },
+  },
+}
 </script>
 

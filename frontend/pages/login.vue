@@ -43,6 +43,7 @@ export default {
                     if (user[i].username === username && user[i].password === password) {
                        const userID_cookie = useCookie('userID');
                         userID_cookie.value = user[i].userId;
+                        this.$emit("login-success", true); // emit event with user ID
                         this.$router.push("/notes");
 
 
