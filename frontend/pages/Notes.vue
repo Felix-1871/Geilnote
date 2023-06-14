@@ -2,7 +2,7 @@
     <div class="notes">
         <div class="notes__title">
             <h1>Notes</h1>
-            <NuxtLink class="create" to="/notes/create">Create note</NuxtLink>
+            <NuxtLink class="create" to="/notes/create">Create new note</NuxtLink>
         </div>
         <div class="NotesContent">
              <div class="noteContainer" v-for="note in UserNotes" :key="note.noteID">
