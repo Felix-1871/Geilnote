@@ -33,10 +33,6 @@ API is available at `http://localhost:7114/api/`
 
 Frontend is available at `http://localhost:3000`
 
-## Authors
-
-- [Felix(Me)](https://github.com/Felix-1871)
-
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
