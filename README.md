@@ -1,6 +1,6 @@
 # GeilNote
 
-Project for the courses "REST application programming" at the University of Gdańsk.
+Project for the "REST application programming" courses at the University of Gdańsk.
 
 ## Description
 
